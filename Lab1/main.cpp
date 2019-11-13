@@ -1,0 +1,168 @@
+#include <iostream>
+#include <vector>
+#include <random>
+#include <thread>
+
+using namespace std;
+
+//Struct for the account
+struct Account{
+    int initBalance;
+    int balance;
+    std::vector<int> logs;
+    std::mutex *mtx;
+
+    Account(int startBalance) : initBalance(startBalance) {}
+};
+
+class Bank{
+    private:
+        std::vector<Account> accounts;
+    public:
+        //adds an account to the bank. The parameter required is the initial balance of the account
+        int addAccount(int initBalance){
+            Account account(initBalance);
+            account.balance = initBalance;
+            account.mtx = new std::mutex();
+
+            //auto da = make_unique<Account>(account);
+            int accountNumber = this->accounts.size() - 1;
+            this->accounts.push_back(account);
+
+            return accountNumber;
+        }
+
+
+        //returns the number of accounts in the bank
+        int getNrOfAccounts(){
+            return this->accounts.size();
+        }
+
+
+        //This function proceed the transfer between accounts
+        //It verifies if the ids are valid or if the amount
+        void transaction(int fromAccount, int toAccount, int amount){
+            //verify if the accounts ids are valid
+            if(fromAccount > accounts.size() || toAccount > accounts.size() || fromAccount < 0 || toAccount < 0)
+                throw std::invalid_argument("One of the account id is invalid");
+
+            // Lock the mutex
+            //We first lock the account with the min ID, after that, the account with the max ID
+            this->accounts[min(fromAccount, toAccount)].mtx->lock();
+            this->accounts[max(fromAccount,toAccount)].mtx->lock();
+
+            //transaction from account A
+            this->accounts[fromAccount].balance -= amount;
+            this->accounts[fromAccount].logs.push_back(-1 * amount);
+
+            //transaction to account B
+            this->accounts[toAccount].balance += amount;
+            this->accounts[toAccount].logs.push_back(amount);
+
+            // Unlock the mutex
+            this->accounts[min(fromAccount, toAccount)].mtx->unlock();
+            this->accounts[max(fromAccount,toAccount)].mtx->unlock();
+
+        }
+
+
+        //This function returns the balance of one account (by id)
+        int getAccountBalance(int accountId){
+            if(accountId > accounts.size() || accountId < 0)
+                throw std::invalid_argument("Account id is invalid");
+            //if the id is valid, we return the balance
+            return this->accounts[accountId].balance;
+        }
+
+
+        //This function checks the integrity meaning that, each account should have all the operations written on logs,
+        //such that when we reverse all the operations, we should receive the initial balance
+        void checkIntegrity(){
+            for (int i = 0; i < this->accounts.size(); i++)
+            {
+                //we take the init balance for each account
+                int checkBalance = this->accounts[i].initBalance;
+
+                //we compute the operations from logs
+                for ( auto log : this->accounts[i].logs) {
+                    checkBalance += log;
+                }
+
+                //if after computing all the operations we have the same amount as the balance, the integrity check has passed
+                //if not, we throw a runtime_error telling the user that the balance does not match with the logs
+                if (checkBalance != this->accounts[i].balance)
+                    throw std::runtime_error("Balance does not match with the logs");
+            }
+        }
+
+};
+
+#define NO_OF_THREADS 100
+#define TRANSACTION_NUMBER 20000000
+#define ACCOUNTS_IN_BANK 1000
+
+
+void doThreadTransaction(Bank &bankP){
+    Bank & bank = const_cast<Bank &>(bankP);
+
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> disAccountNumber(0, bank.getNrOfAccounts()- 1);
+    std::uniform_int_distribution<> disSum(1, 10);
+
+
+    int total = TRANSACTION_NUMBER / NO_OF_THREADS;
+    for(int i = 1; i <= total; i++) {
+        int fromAccount = 0;
+        int toAccount = 0;
+
+        while(toAccount == fromAccount) {
+            fromAccount = disAccountNumber(gen);
+            toAccount = disAccountNumber(gen);
+        }
+        int money = disSum(gen);
+        bank.transaction(fromAccount, toAccount, money);
+    }
+}
+
+int main() {
+    Bank bank;
+
+    // Create bank accounts
+    //https://en.cppreference.com/w/cpp/numeric/random/uniform_real_distribution
+    std::random_device rd;  //Will be used to obtain a seed for the random number engine
+    std::mt19937 gen(rd()); //Standard mersenne_twister_engine seeded with rd()
+    std::uniform_int_distribution<> dis(50, 500);
+
+    for(int i = 1; i <= ACCOUNTS_IN_BANK; i++) {
+        // Use dis to transform the random unsigned int generated by gen into a
+        // double in [50, 500). Each call to dis(gen) generates a new random double
+        bank.addAccount(dis(gen));
+    }
+
+    // Create and run threads
+    typedef std::chrono::high_resolution_clock Time;
+    typedef std::chrono::milliseconds ms;
+    typedef std::chrono::duration<float> fsec;
+    auto t0 = Time::now();
+
+    vector<thread> threads;
+    for(int i = 1; i <= NO_OF_THREADS; i++) {
+        threads.emplace_back(thread(doThreadTransaction, std::ref(bank)) );
+    }
+
+    // Wait for all threads to finish
+    for(auto &thread: threads) {
+        thread.join();
+    }
+    auto t1 = Time::now();
+    fsec fs = t1 - t0;
+
+    ms d = std::chrono::duration_cast<ms>(fs);
+    std::cout << d.count() << "ms\n";
+
+    // Run the integrity check function, if it crashes, the program is broken
+    bank.checkIntegrity();
+
+    return 0;
+}

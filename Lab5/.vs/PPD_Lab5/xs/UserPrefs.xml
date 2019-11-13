@@ -1,0 +1,22 @@
+﻿<Properties StartupConfiguration="{B7FA826C-4A8C-48B9-AA52-2D69E75CCB86}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="PPD_Lab5/Program.cs">
+    <Files>
+      <File FileName="PPD_Lab5/Program.cs" Line="52" Column="9" />
+      <File FileName="PPD_Lab5/StateObject.cs" Line="10" Column="23" />
+      <File FileName="PPD_Lab5/Utils.cs" Line="6" Column="10" />
+      <File FileName="PPD_Lab5/CallbackDownloader.cs" Line="106" Column="13" />
+      <File FileName="PPD_Lab5/HttpResponse.cs" Line="20" Column="34" />
+      <File FileName="PPD_Lab5/HttpResponseParser.cs" Line="8" Column="6" />
+      <File FileName="PPD_Lab5/TaskDownloader.cs" Line="130" Column="2" />
+      <File FileName="PPD_Lab5/WebDownloader.cs" Line="1" Column="1" />
+      <File FileName="PPD_Lab5/AsyncDownloader.cs" Line="114" Column="41" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.PPD__Lab5 PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>

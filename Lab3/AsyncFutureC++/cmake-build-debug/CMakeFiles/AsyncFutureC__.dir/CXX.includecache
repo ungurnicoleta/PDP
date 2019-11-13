@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/nicoletaungur/FACULTATE/PPD/Lab3/AsyncFutureC++/main.cpp
+iostream
+-
+thread
+-
+future
+-
+util.h
+/Users/nicoletaungur/FACULTATE/PPD/Lab3/AsyncFutureC++/util.h
+
+/Users/nicoletaungur/FACULTATE/PPD/Lab3/AsyncFutureC++/util.h
+vector
+-
+iostream
+-
+

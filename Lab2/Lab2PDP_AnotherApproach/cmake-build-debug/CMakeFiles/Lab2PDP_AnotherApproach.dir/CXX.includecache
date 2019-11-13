@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/nicoletaungur/FACULTATE/PPD/Lab2PDP_AnotherApproach/main.cpp
+iostream
+-
+thread
+-
+util.h
+/Users/nicoletaungur/FACULTATE/PPD/Lab2PDP_AnotherApproach/util.h
+
+/Users/nicoletaungur/FACULTATE/PPD/Lab2PDP_AnotherApproach/util.h
+vector
+-
+iostream
+-
+

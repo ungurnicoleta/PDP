@@ -1,0 +1,3 @@
+/Users/nicoletaungur/FACULTATE/PPD/Lab1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/nicoletaungur/FACULTATE/PPD/Lab1/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/nicoletaungur/FACULTATE/PPD/Lab1/cmake-build-debug/CMakeFiles/lab1PDP.dir

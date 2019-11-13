@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/nicoletaungur/FACULTATE/PPD/Lab4/Queue.h
+condition_variable
+-
+vector
+-
+Task.h
+/Users/nicoletaungur/FACULTATE/PPD/Lab4/Task.h
+
+/Users/nicoletaungur/FACULTATE/PPD/Lab4/Task.h
+memory
+-
+vector
+-
+
+/Users/nicoletaungur/FACULTATE/PPD/Lab4/Util.h
+vector
+-
+iostream
+-
+
+/Users/nicoletaungur/FACULTATE/PPD/Lab4/main.cpp
+utility
+-
+iostream
+-
+thread
+-
+future
+-
+Util.h
+/Users/nicoletaungur/FACULTATE/PPD/Lab4/Util.h
+Queue.h
+/Users/nicoletaungur/FACULTATE/PPD/Lab4/Queue.h
+

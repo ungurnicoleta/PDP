@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/nicoletaungur/FACULTATE/PPD/Lab3/Lab3ThreadPoolC++/ThreadPool.cpp
+cstdio
+-
+atomic
+-
+thread
+-
+vector
+-
+functional
+-
+list
+-
+
+/Users/nicoletaungur/FACULTATE/PPD/Lab3/Lab3ThreadPoolC++/main.cpp
+iostream
+-
+functional
+-
+vector
+-
+thread
+-
+ThreadPool.cpp
+/Users/nicoletaungur/FACULTATE/PPD/Lab3/Lab3ThreadPoolC++/ThreadPool.cpp
+util.h
+/Users/nicoletaungur/FACULTATE/PPD/Lab3/Lab3ThreadPoolC++/util.h
+
+/Users/nicoletaungur/FACULTATE/PPD/Lab3/Lab3ThreadPoolC++/util.h
+vector
+-
+iostream
+-
+
