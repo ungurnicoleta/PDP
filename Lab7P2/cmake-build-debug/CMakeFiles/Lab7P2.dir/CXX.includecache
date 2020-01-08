@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/nicoletaungur/FACULTATE/PPD/Lab7P2/main.cpp
+iostream
+-
+fstream
+-
+safequeue.h
+/Users/nicoletaungur/FACULTATE/PPD/Lab7P2/safequeue.h
+thread
+-
+
+/Users/nicoletaungur/FACULTATE/PPD/Lab7P2/safequeue.h
+queue
+-
+mutex
+-
+condition_variable
+-
+
